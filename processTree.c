@@ -5,9 +5,9 @@
 
 int main()
 {
-    pid_t c1,c2,c11,c12,c21,c22;
+    pid_t p,c1,c2,c11,c12,c21,c22;
     // printf("startd with parent : %d\n",getpid());
-    
+    p=getpid();
     c1=fork(); // whill create c1 child for p 
     if(c1==0)
     {
@@ -22,7 +22,7 @@ int main()
           if(c12==0)
           printf("child c12 :%d of parent %d",getpid(),getppid());  
           else 
-          printf("child c1 :%d of parent %d",getpid(),getppid());
+          printf("child c1 :%d of parent %d",getpid(),p);
       }
     }
     else // now parent is nunning 
@@ -41,11 +41,11 @@ int main()
             if(c22==0)
             printf("child c22 :%d of parent %d",getpid(),getppid());  
             else 
-            printf("child c2 :%d of parent %d",getpid(),getppid());
+            printf("child c2 :%d of parent %d",getpid(),p);
          }
        }
        else 
-         printf("parent is : %d",getpid());
+         printf("parent is : %d",p);
     }
    
   //  printf(" ==> current running process %d\n",getpid());
@@ -54,3 +54,15 @@ int main()
    
   return 0;
 }
+
+//                     p
+//                    / \
+//                   /   \
+//                 c1     c2
+//                / \     /  \
+//             c11  c12  c21  c22
+// 
+// 
+// 
+// 
+// 
