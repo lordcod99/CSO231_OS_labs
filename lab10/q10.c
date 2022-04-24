@@ -165,13 +165,13 @@ void status(int n)
         if(memory[i]==-1)
         {
             flag1=0;
-            printf("Unused Addresses [%d:",&memory[i]);
+            printf("Unused Addresses [%d:",memory[i]);
             for(j=i+1;j<n;j++)
             {
                 if(memory[j]!=-1)
                 {
                     
-                   printf("%d]\n",&memory[j-1]);
+                   printf("%d]\n",memory[j-1]);
                    i=j-1;
                    flag1=1;
  	           break;
@@ -179,7 +179,7 @@ void status(int n)
             }
             if(flag1==0)
             {
-            	printf("%d]\n",&memory[j-1]);
+            	printf("%d]\n",memory[j-1]);
             	i=j;
             }
         }
@@ -187,12 +187,12 @@ void status(int n)
         {
             flag2=0;
             pid=memory[i];
-            printf("Addresses [%d:",&memory[i]);
+            printf("Addresses [%d:",memory[i]);
             for(j=i+1;j<n;j++)
             {
                 if(memory[j]!=pid)
                 {
-                   printf("%d] Process P%d\n",&memory[j-1],pid);
+                   printf("%d] Process P%d\n",memory[j-1],pid);
                    i=j-1;
                    flag2=1;
                    break;
@@ -200,7 +200,7 @@ void status(int n)
             }
             if(flag2==0)
             {
-                printf("%d] Process P%d\n",&memory[j-1],pid);
+                printf("%d] Process P%d\n",memory[j-1],pid);
                 i=j;
             }
         }

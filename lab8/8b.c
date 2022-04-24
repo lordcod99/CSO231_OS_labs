@@ -3,6 +3,7 @@
 #include <pthread.h>
 #include <semaphore.h>
 #include <stdio.h>
+#include <unistd.h>
 
 #define N 5
 #define THINKING 2
@@ -22,7 +23,6 @@ void test(int phnum)
 	if (state[phnum] == HUNGRY
 		&& state[LEFT] != EATING
 		&& state[RIGHT] != EATING) {
-		// state that eating
 		state[phnum] = EATING;
 
 		sleep(2);
@@ -32,43 +32,34 @@ void test(int phnum)
 
 		printf("Philosopher %d is Eating\n", phnum + 1);
 
-		// sem_post(&S[phnum]) has no effect
-		// during takefork
-		// used to wake up hungry philosophers
-		// during putfork
+		
 		sem_post(&S[phnum]);
 	}
 }
 
-// take up chopsticks
 void take_fork(int phnum)
 {
 
 	sem_wait(&mutex);
 
-	// state that hungry
 	state[phnum] = HUNGRY;
 
 	printf("Philosopher %d is Hungry\n", phnum + 1);
 
-	// eat if neighbours are not eating
 	test(phnum);
 
 	sem_post(&mutex);
 
-	// if unable to eat wait to be signalled
 	sem_wait(&S[phnum]);
 
 	sleep(1);
 }
 
-// put down chopsticks
 void put_fork(int phnum)
 {
 
 	sem_wait(&mutex);
 
-	// state that thinking
 	state[phnum] = THINKING;
 
 	printf("Philosopher %d putting fork %d and %d down\n",
@@ -104,7 +95,6 @@ int main()
 	int i;
 	pthread_t thread_id[N];
 
-	// initialize the semaphores
 	sem_init(&mutex, 0, 1);
 
 	for (i = 0; i < N; i++)
@@ -113,7 +103,6 @@ int main()
 
 	for (i = 0; i < N; i++) {
 
-		// create philosopher processes
 		pthread_create(&thread_id[i], NULL,
 					philosopher, &phil[i]);
 
